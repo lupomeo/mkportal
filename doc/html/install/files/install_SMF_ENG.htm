@@ -1,0 +1,111 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="it">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Nuova pagina 0</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+</head>
+
+<body>
+
+<h3 align="center">How to install MKPortal with SMF</h3>
+<p><b>Please note</b>: </p>
+<ul>
+	<li>SMF 1.x is required to install this version of MKPortal.</li>
+	<li>Before installing this product, we recommend to backup your database.
+	<br>&nbsp;</li>
+</ul>
+<hr>
+<p>
+<br>
+<b>Installing MKPortal is very simple:</b></p>
+<ol>
+	<li>The installation package (zip file) contains the &quot;upload&quot; folder.
+You should transfer the content of &quot;upload&quot; folder on your webspace
+(for example http://www.yoursite.com/) according to this scheme:<br><br><b>/forum&nbsp;&nbsp;&nbsp;
+	</b>&nbsp;&nbsp; <i>&nbsp;&nbsp; (or any other name of the folder containing 
+	the board installed)</i><br>
+	<b>/mkportal&nbsp; </b>&nbsp;&nbsp; <i>(containing the content of &quot;upload&quot; folder)</i><br>
+	<b>/index.php </b>&nbsp; <i>(included in mkportal package)</i><br><br>You should obtain this structure 
+	(it's the only structure to make mkportal work correctly) :<br>
+	<br><b>http://www.yoursite.com/forum<br>http://www.yoursite.com/mkportal<br>http://www.yoursite.com/index.php</b>&nbsp;&nbsp;
+	<i>(mkportal main index)</i><br>
+	<br>If you have the board index on your website root you should move it in a 
+subfolder (as shown in the example above).<br>
+	<br>
+	<br>&nbsp;</li>
+	<li>Now you can start installation typing the url:<br><b>http://www.yoursite.com/mkportal/mk_install.php</b><br>
+	<br>Just follow instructions and it's done<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Give the writing permissions (chmod 777) to the following files and directories and
+to their content:<br><br>mkportal/conf_mk.php<br>mkportal/cache<br>mkportal/blog<br>mkportal/modules/downloads/file<br>mkportal/modules/gallery/album<br>mkportal/modules/reviews/images<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Remove the file mk_install.php file from server</li>
+</ol>
+<p>
+<b>The installation is finished!!<br>
+Have fun!!</b></p><hr>
+<p>
+If you want to view the board inside MKPortal you have to:</p>
+<ul>
+	<li>set in the Mkportal Control Panel -&gt; preferences 
+the option &quot;view the forum inside portal&quot; </li>
+</ul>
+<p>and modify this board file:</p>
+<ul>
+	<li>Sources/Subs.php&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>(backup it before 
+	modifying it!)</i></li>
+</ul>
+<p>
+as follows:</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	<b>open Sources/Subs.php<br>
+	</b><br>
+	find the code (around line 1275):<p class="code">trackStats();</p>
+	<p>add below:</p>
+	<pre class="code">//added from MKportal
+	global $db_prefix;
+	define ( 'IN_MKP', 1 );
+	define('DBPREFIX', $db_prefix);
+	$MK_PATH = &quot;../&quot;;
+	$_SESSION['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
+	require $MK_PATH.&quot;mkportal/conf_mk.php&quot;;
+	$checkaction = 0;
+	if (array_key_exists('action', $_REQUEST)) {
+		if (in_array($_REQUEST['action'], array('dlattach', 'dumpdb', 'findmember', 'helpadmin', 'quotefast', 'spellcheck', '.xml', 'help', 'printpage', 'jsoption', 'keepalive'))) {
+			$checkaction = 1;
+		}
+	}
+	if($FORUM_VIEW == 1 &amp;&amp; !$do_header &amp;&amp; !$checkaction) {
+  		ob_start();
+	}
+//end added</pre>
+	<p>-------------------------------------<br>
+	<br>
+	find the code:</p>
+	<pre class="code">if ($do_footer)
+	{
+		// Just show the footer, then.
+		loadSubTemplate(isset($context['sub_template']) ? $context['sub_template'] : 'main');
+		template_footer();
+
+		// (since this is just debugging... it's okay that it's after &lt;/html&gt;.)
+		db_debug_junk();
+	}</pre>
+	<p>add below:</p>
+	<pre class="code">//added from MKportal
+	if($FORUM_VIEW == 1 &amp;&amp; !$checkaction) {
+		require_once $MK_PATH.&quot;mkportal/include/boardmod/smf_out.php&quot;;
+		mkportal_board_out();
+	}
+//end added</pre>
+	<p>&nbsp;</div>
+
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="it">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Nuova pagina 0</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+</head>
+
+<body>
+
+<h3 align="center">Come installare MKPortal con VBullettin</h3>
+<p><b>Attenzione</b>: </p>
+<ul>
+	<li>Questa versione di MKPortal richiede la versione 3.0.3, 3.0.4 o 3.0.5 di 
+	VBullettin.</li>
+	<li>Prima di installare questo prodotto, si consiglia di effettuare un 
+	backup del database.
+	<br>&nbsp;</li>
+</ul>
+<hr>
+<p>
+<br>
+<b>Installare MKPortal è molto semplice:</b></p>
+<ol>
+	<li>Il pacchetto d'installazione (il file .zip) contiene la cartella &quot;upload&quot;: 
+	devi trasferirne tutto il contenuto sul tuo spazio web
+(per esempio http://www.tuosito.it) seguendo questo schema:<br><br><b>/forum&nbsp;
+	</b>&nbsp;&nbsp; <i>&nbsp;&nbsp;&nbsp; (o qualsiasi altro nome contenga di 
+	cartella che contenga il forum installato)</i><br>
+	<b>/mkportal&nbsp; </b>&nbsp;&nbsp; <i>(ove verrà copiato il contenuto della 
+	cartella &quot;upload&quot;)</i><br>
+	<b>/index.php </b>&nbsp; <i>(file incluso nel pacchetto di MKPortal)</i><br><br>
+	Dovresti ottenere questa struttura 
+	(è l'unica struttura per far funzionare correttamente mkportal) :<br>
+	<br><b>http://www.tuosito.it/forum<br>http://www.tuosito.it/mkportal<br>http://www.tuosito.it/index.php</b>&nbsp;&nbsp;
+	<i>(index principale di mkportal)</i><br>
+	<br>Se adesso l'index.php della tua board si trova nella radice del tuo 
+	spazio web, devi spostare la board in una sottocartella in modo da ottenere 
+	lo schema di cui sopra.<br>
+	<br>
+	<br>&nbsp;</li>
+	<li>Ora puoi avviare lo script d'installazione digitando l'url:<br><b>http://www.tuosito.it/mkportal/mk_install.php</b><br>
+	<br>Segui le istruzioni che appaiono a video<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Dai i permessi in scrittura (chmod 777) ai seguenti file, cartelle ed ai 
+	file ivi contenuti:<br><br>mkportal/conf_mk.php<br>mkportal/cache<br>mkportal/blog<br>mkportal/modules/downloads/file<br>mkportal/modules/gallery/album<br>mkportal/modules/reviews/images<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Cancella il file mk_install.php dal server</li>
+</ol>
+<p>
+<b>L'installazione è terminata!!<br>
+Buon divertimento!!</b></p><hr>
+<p>
+Se si vuole visualizzare la board all'interno di MKPortal, è necessario:</p>
+<ul>
+	<li>impostare l'opzione &quot;View the forum inside Portal&quot;&nbsp; nelle 
+	preferenze del pannello di controllo di MKPortal </li>
+</ul>
+<p>e modificare questo file del forum <i>(fanne un backup prima!)</i>:</p>
+<ul>
+	<li>includes/functions.php</li>
+</ul>
+<p>
+seguendo queste istruzioni:</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	apri il file della board <b>includes/functions.php<br>
+	</b><br>
+	cerca il codice (attorno alla linea 1957):<pre class="code">// parse PHP include ##################
+	if (!is_demo_mode())
+	{
+		eval(fetch_template('phpinclude_end', -1, 0));
+	}</pre>
+	<p>aggiungi sotto:</p>
+	<pre class="code">//added from MKportal
+define ( 'IN_MKP', 1 );
+$MK_PATH = "../";
+require $MK_PATH."mkportal/conf_mk.php";
+if($FORUM_VIEW == 1 && $_REQUEST['do'] != "getsmilies" && $_REQUEST['do'] != "newthread" && $_REQUEST['do'] != "newreply" && $_REQUEST['do'] != "editpost"  && $_REQUEST['do'] != "editsignature"  && $_REQUEST['do'] != "newpm" && THIS_SCRIPT != "arcade" && THIS_SCRIPT != "vbchat") {
+require_once $MK_PATH."mkportal/include/boardmod/vb_out.php";
+mkportal_board_out($output);
+}
+//end added</pre>
+	<pre>&nbsp;</pre>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,508 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>!BlogTitle!</title>
+
+<meta NAME="Description" CONTENT="Il mio blog personale">
+
+<style id="stylesheet">
+
+ body {
+
+   background:#5A5A5A;
+
+   color:#000000;
+
+   margin:0px 0px 0px 0px;
+
+   font:10px verdana, arial, helvetica, sans-serif;
+
+   scrollbar-face-color:#000000;
+
+   scrollbar-arrow-color:#000000;
+
+   scrollbar-track-color:#5A5A5A;
+
+   scrollbar-shadow-color:#5A5A5A;
+
+   scrollbar-highlight-color:#5A5A5A;
+
+   scrollbar-3dlight-color:#5A5A5A;
+
+   scrollbar-darkshadow-color:#5A5A5A;
+
+      }
+
+
+
+ a {
+
+   text-decoration:underline;
+
+   background:transparent;
+
+   }
+
+
+
+ a:link {color:#666;}
+
+ a:visited {color:#666;}
+
+ a:hover {color:#000;}
+
+ 
+
+ #top { 
+
+ position:absolute;
+
+ top:18px;
+
+ left:0px;
+
+ background-image: url(mkportal/modules/blog/templates/images/bg01.gif);
+
+ background-repeat:repeat-x;
+
+ width:100%;
+
+ }
+
+       
+
+#side {
+
+ position:absolute;
+
+ top:200px;
+
+ left:10px;
+
+ width:200px;
+
+ background:transparent;
+
+ padding:2px;
+
+ }
+
+ 
+
+ .sidebody {
+
+ background:#CCC; 
+
+ border:1px solid #333;
+
+ color:#666;
+
+ padding-left:2px;
+
+ padding-right:2px;
+
+ padding-top:2px;
+
+ padding-bottom:2px;
+
+ margin:0px 0px 2px 0px;
+
+ font:7pt verdana, arial, helvetica, sans-serif;
+
+ }
+
+ .sidebody2 {
+
+ padding-left:2px;
+
+ padding-right:2px;
+
+ padding-top:2px;
+
+ padding-bottom:2px;
+
+ margin:0px 0px 2px 0px;
+
+ font:7pt verdana, arial, helvetica, sans-serif;
+
+ font-weight:bold;
+
+    text-transform:lowercase;
+
+    color:#999;
+
+ }
+
+ .sidetitle {
+
+  background:#999;
+
+  border-left:1px solid #333;
+
+  border-right:1px solid #333;
+
+  border-top:1px solid #333;
+
+  padding:2px;
+
+  font:7pt verdana, arial, helvetica, sans-serif;
+
+  font-weight:normal;
+
+  text-transform:uppercase;
+
+  color:#333;
+
+  }
+
+           
+
+    
+
+#log {
+
+   position:absolute;
+
+   top:130px;
+
+   left:250px;
+
+   width:550px;
+
+   background:transparent; 
+
+   padding-bottom:15px;
+
+   }
+
+           
+
+    
+
+   .logbody {
+
+      background:#ccc;
+
+      border:1px solid #333;
+
+      padding:5px; 
+
+     margin:0px 0px 0px 0px;
+
+  }
+
+         
+
+   .date {
+
+    background:transparent;
+
+    font:12pt georgia, tahoma, serif;
+
+    font-weight:bold;
+
+    text-transform:lowercase;
+
+    color:#999;
+
+    margin:5px 0px 2px 0px;
+
+    }
+
+    .titolo {
+
+    background:transparent;
+
+    font:15pt georgia, tahoma, serif;
+
+    font-weight:bold;
+
+    text-transform:lowercase;
+
+    color:#ffffff;
+
+    margin:5px 0px 2px 0px;
+
+    }
+
+       
+
+	.title	{ 
+
+		font:7pt verdana, arial, helvetica, sans-serif;
+
+		font-weight:normal;
+
+		text-transform:uppercase;
+
+		 background:#999;
+
+		border-left:1px solid #333;
+
+		border-right:1px solid #333;
+
+		border-top:1px solid #333;
+
+		padding:2px;
+
+       		}			
+
+		
+
+
+
+    
+
+		
+
+ .posted {
+
+		background:#999;
+
+		text-transform:lowercase;
+
+		border-left:1px solid #333;
+
+		border-right:1px solid #333;
+
+		border-bottom:1px solid #333;
+
+		padding:2px;
+
+       margin:0px 0px 50px 0px;
+
+	           }  
+
+	           
+
+      
+
+   </style>
+
+</head>
+
+
+
+<body>
+
+<div id="top">
+
+<dd><table border="0" cellspacing="0" cellpadding="0">
+
+    <tr>
+
+      <td width="50%"><img src="mkportal/modules/blog/templates/images/title01.gif" width="257" height="203"></td>
+
+      <td width="50%"><span class="titolo">!BlogTitle!</span></td>
+
+    </tr>
+
+  </table>
+
+</dd>
+
+</div><div id="side">
+
+<div class="sidetitle">
+
+Chi Sono
+
+</div>
+
+<div class="sidebody">
+
+Anni:<b> !UtenteEta!</b> <br>
+
+Città:<b>!UtenteCitta!</b> <br>
+
+Zodiaco:<b>!UtenteSegno!</b> <br>
+
+</div>
+
+
+
+<div class="sidetitle">
+
+Il Mio Blog
+
+</div>
+
+<div class="sidebody">
+
+!BlogDescription!
+
+</div>
+
+
+
+<div class="sidetitle">
+
+Cosa Amo
+
+</div>
+
+<div class="sidebody">
+
+!UtenteAmo!
+
+</div>
+
+
+
+<div class="sidetitle">
+
+Cosa Odio
+
+</div>
+
+<div class="sidebody">
+
+!UtenteOdio!
+
+</div>
+
+
+
+<div class="sidetitle">
+
+Archivio
+
+</div>
+
+<div class="sidebody">
+
+!UtenteArchivio!
+
+</div>
+
+
+
+<div class="sidetitle">
+
+I Miei Link
+
+</div>
+
+<div class="sidebody">
+
+!UtenteLink!
+
+</div>
+
+
+
+<div class="sidetitle">
+
+Cosa Sto Leggendo
+
+</div>
+
+<div class="sidebody">
+
+!UtenteLibri!
+
+</div>
+
+
+
+<div class="sidetitle">
+
+Le mie canzoni preferite
+
+</div>
+
+<div class="sidebody">
+
+!UtenteCanzoni!
+
+</div>
+
+
+
+<div class="sidetitle">
+
+I film che ho visto di recente
+
+</div>
+
+<div class="sidebody">
+
+!UtenteFilm!
+
+</div>
+
+
+
+<div class="sidetitle">
+
+La citazione di oggi...
+
+</div>
+
+<div class="sidebody">
+
+!UtenteCitazione!
+
+</div>
+
+<br><br>
+
+<div class="sidebody2">
+
+<p align="center">
+
+!BlogCounter!<br>
+
+anime si sono perse qui dentro
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<div id="log">
+
+
+
+!CorpoMessaggi!
+
+</div></dd><br>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!-- template2 -->
+
+
+
+<div class="date"> !PostData!</div>
+
+<div class="logbody">!BlogPost!</div>
+
+<div class="posted">!BlogUtente! si è sfogato qui alle !PostOra! !PostCommenti!
+
+</div>
+

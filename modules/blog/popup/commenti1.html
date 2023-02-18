@@ -1,0 +1,68 @@
+<html>
+
+<head>
+<title><? echo $mklib->lang['b_comtitle'] ?></title>
+</head>
+
+<body bgcolor="#FFFFFF">
+<div align="center"><center>
+
+<table width="400" style="border: 1 solid #C0C0C0">
+  <tr>
+    <td width="100%" bgcolor="#FFFFFF"><p align="center"><b><font face="Verdana" size="2"
+    color="#FF9900"><? echo $mklib->lang['b_comtitle2'] ?></font></b></td>
+  </tr>
+  <tr>
+    <td><? echo $messaggi ?></td>
+  </tr>
+</table>
+</center></div>
+
+<form method="post" action="index.php?ind=blog&op=insert_comments" name="comments" align="center">
+  <input type="hidden" name="idm" value="<? echo $idm ?>"><input type="hidden"
+  name="midh" value="<? echo $midh ?>"><input type="hidden"
+  name="ope" value="<? echo $ope ?>"><input type="hidden"
+  name="autore" value="<? echo $autore ?>"><input type="hidden"
+  name="home" value="<? echo $home ?>"><div align="center"><center><table width="400"
+  style="border: 1 solid #C0C0C0">
+    <tr>
+      <td width="100%" bgcolor="#FFFFFF"><div align="center"><center><p><font face="Verdana"
+      size="2" color="#FF9900"><b><? echo $mklib->lang['b_insertcomm'] ?></b></font></td>
+    </tr>
+    <tr>
+      <td><table border="0" width="100%" cellpadding="3">
+        <tr>
+          <td width="50%" bgcolor="#F5F5F5"><strong><font face="verdana" size="1"><? echo $mklib->lang['b_icommname'] ?><br />
+          </font></strong></td>
+          <td width="50%" bgcolor="#F5F5F5"><font face="Verdana"
+      size="1"><? echo $autore ?></td>
+        </tr>
+        <tr>
+          <td width="50%" bgcolor="#F5F5F5"><strong><font face="verdana" size="1"><? echo $mklib->lang['b_icommhome'] ?><br />
+          </font></strong></td>
+          <td width="50%" bgcolor="#F5F5F5"><font face="Verdana"
+      size="1"><input type="text" name="home" size="35" value="http://"></td>
+        </tr>
+        <tr>
+          <td width="50%" bgcolor="#F5F5F5"><strong><font face="verdana" size="1"><? echo $mklib->lang['b_icommtext'] ?><br
+          />
+          <br />
+          <br />
+          </font></strong></td>
+          <td width="50%" bgcolor="#F5F5F5"><textarea name="commento" rows="5" cols="30"
+          title="scrivi il tuo commento" style="background-color: #EBEBEB; border: 1 dotted #F0A962"></textarea></td>
+        </tr>
+        <tr>
+          <td width="50%"></td>
+          <td width="50%"><input type="submit" class="button" name="post"
+          value=" <? echo $mklib->lang['b_icommsave'] ?> " title="pubblica questo commento"
+          style="background-color: #F0A962; font-family: Verdana; font-size: 10 px; color: #FFFFFF; font-weight: bold; border: 2 outset #F0A962"></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+  </table>
+  </center></div>
+</form>
+</body>
+</html>

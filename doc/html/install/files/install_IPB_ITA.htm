@@ -1,0 +1,166 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>MKPortal Documentation</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<base target="_self">
+</head>
+
+<body>
+
+<h3 align="center">Come installare MKPortal con <b>IPB</b></h3>
+<p><b>Attenzione</b>: </p>
+<ul>
+	<li>Questa versione di MKPortal richiede la versione 2.x di IPB. Versioni 
+	precedenti non sono supportate.</li>
+	<li>Prima di installare questo prodotto, si consiglia di effettuare un 
+	backup del database.
+	<br>&nbsp;</li>
+</ul>
+<hr>
+<p>
+<br>
+<b>Installare MKPortal è molto semplice:</b></p>
+<ol>
+	<li>Il pacchetto d'installazione (il file .zip) contiene la cartella &quot;upload&quot;: 
+	devi trasferirne tutto il contenuto sul tuo spazio web
+(per esempio http://www.tuosito.it) seguendo questo schema:<br><br><b>/forum&nbsp;
+	</b>&nbsp;&nbsp; <i>&nbsp;&nbsp;&nbsp; (o qualsiasi altro nome contenga di 
+	cartella che contenga il forum installato)</i><br>
+	<b>/mkportal&nbsp; </b>&nbsp;&nbsp; <i>(ove verrà copiato il contenuto della 
+	cartella &quot;upload&quot;)</i><br>
+	<b>/index.php </b>&nbsp; <i>(file incluso nel pacchetto di MKPortal)</i><br><br>
+	Dovresti ottenere questa struttura 
+	(è l'unica struttura per far funzionare correttamente mkportal) :<br>
+	<br><b>http://www.tuosito.it/forum<br>http://www.tuosito.it/mkportal<br>http://www.tuosito.it/index.php</b>&nbsp;&nbsp;
+	<i>(index principale di mkportal)</i><br>
+	<br>Se adesso l'index.php della tua board si trova nella radice del tuo 
+	spazio web, devi spostare la board in una sottocartella in modo da ottenere 
+	lo schema di cui sopra.<br>
+	<br>
+	<br>&nbsp;</li>
+	<li>Ora puoi avviare lo script d'installazione digitando l'url:<br><b>http://www.tuosito.it/mkportal/mk_install.php</b><br>
+	<br>Segui le istruzioni che appaiono a video<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Dai i permessi in scrittura (chmod 777) ai seguenti file, cartelle ed ai 
+	file ivi contenuti:<br><br>mkportal/conf_mk.php<br>mkportal/cache<br>mkportal/blog<br>mkportal/modules/downloads/file<br>mkportal/modules/gallery/album<br>mkportal/modules/reviews/images<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Cancella il file mk_install.php dal server</li>
+</ol>
+<p>
+<b>L'installazione è terminata!!<br>
+Buon divertimento!!</b></p><hr>
+<p>
+Se si vuole visualizzare la board all'interno di MKPortal, è necessario:</p>
+<ul>
+	<li>impostare l'opzione &quot;View the forum inside Portal&quot;&nbsp; nelle 
+	preferenze del pannello di controllo di MKPortal </li>
+</ul>
+<p>e modificare questi 2 file <i>(fanne un backup prima!)</i>:</p>
+<ul>
+	<li>/index.php</li>
+	<li>/sources/classes/class_display.php</li>
+</ul>
+<p>
+seguendo queste istruzioni:</p>
+<p>
+&nbsp;</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	apri <b>/index.php<br>&nbsp;</b><p>cerca la stringa (attorno alla linea 45):</p>
+<p class="code">define ( 'USE_SHUTDOWN', 1 );</p>
+<p>sostituiscila con:</p>
+<p class="code">define ( 'USE_SHUTDOWN', 0 );</p>
+<p>
+&nbsp;</p></div>
+<p>
+&nbsp;</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+<br>
+<br>
+	apri<b>
+/sources/classes/class_display.php<br>
+	</b>
+<br>
+	cerca il codice (attorno alla linea 62):<pre class="code">function do_output($output_array)
+    {
+		global $DB, $Debug, $ibforums, $std;</pre>
+<p>aggiungi sotto:</p>
+<pre class="code">//added from MKportal
+		define ( 'IN_MKP', 1 );
+		$MK_PATH = &quot;../&quot;;
+		require $MK_PATH.&quot;mkportal/conf_mk.php&quot;;
+//end added</pre>
+<p>----------------------------------------------------<br>
+<br>
+cerca il codice (attorno alla linea 192):</p>
+<p class="code">$output_array['MEMBER_BAR'] = $ibforums-&gt;skin_global-&gt;member_bar($msg_data);</p>
+<p><br>
+sostituiscilo con:</p>
+<pre class="code">//Modificato da Mkportal
+		if(!$FORUM_VIEW) {
+			$output_array['MEMBER_BAR'] = $ibforums-&gt;skin_global-&gt;member_bar($msg_data);
+		}
+//fine modificato</pre>
+<p>----------------------------------------------------<br>
+<br>
+cerca il codice (attorno alla linea 269):</p>
+<p class="code">$ibforums-&gt;skin['_wrapper'] = str_replace( &quot;&lt;% BOARD HEADER %&gt;&quot; , $this_header , 
+$ibforums-&gt;skin['_wrapper']);</p>
+<p>sostituiscilo con:</p>
+<pre class="code">//Modificato da Mkportal
+		if(!$FORUM_VIEW)
+		{
+			$ibforums-&gt;skin['_wrapper'] = str_replace( &quot;&lt;% BOARD HEADER %&gt;&quot;   , $this_header             , $ibforums-&gt;skin['_wrapper']);
+		}
+        else
+        {
+		$mksubs = &lt;&lt;&lt;EOF
+		&lt;!--ipb.javascript.start--&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+&lt;!--
+ var ipb_var_st       = &quot;{$ibforums-&gt;input['st']}&quot;;
+ var ipb_lang_tpl_q1  = &quot;{$ibforums-&gt;lang['tpl_q1']}&quot;;
+ var ipb_var_s        = &quot;{$ibforums-&gt;session_id}&quot;;
+ var ipb_var_phpext   = &quot;{$ibforums-&gt;vars['php_ext']}&quot;;
+ var ipb_var_base_url = &quot;{$ibforums-&gt;base_url}&quot;;
+ var ipb_input_f      = &quot;{$ibforums-&gt;input['f']}&quot;;
+ var ipb_input_t      = &quot;{$ibforums-&gt;input['t']}&quot;;
+ var ipb_input_p      = &quot;{$ibforums-&gt;input['p']}&quot;;
+ var ipb_var_cookieid = &quot;{$ibforums-&gt;vars['cookie_id']}&quot;;
+ var ipb_var_cookie_domain = &quot;{$ibforums-&gt;vars['cookie_domain']}&quot;;
+ var ipb_var_cookie_path   = &quot;{$ibforums-&gt;vars['cookie_path']}&quot;;
+ //--&gt;
+&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src='jscripts/ipb_global.js'&gt;&lt;/script&gt;
+&lt;!--ipb.javascript.end--&gt;
+EOF;
+		$ibforums-&gt;skin['_wrapper'] = str_replace( &quot;&lt;% BOARD HEADER %&gt;&quot;   , $mksubs             , $ibforums-&gt;skin['_wrapper']);
+		}
+//fine modificato</pre>
+<p>----------------------------------------------------<br>
+<br>
+cerca il codice (attorno alla linea 359):</p>
+<pre class="code">if ( $ibforums-&gt;vars['ipb_img_url'] )
+		{
+			$ibforums-&gt;skin['_wrapper'] = preg_replace( &quot;#img\s+?src=[\&quot;']style_(images|avatars|emoticons)(.+?)[\&quot;'](.+?)?&quot;.&quot;&gt;#is&quot;, &quot;img src=\&quot;&quot;.$ibforums-&gt;vars['ipb_img_url'].&quot;style_\\1\\2\&quot;\\3&gt;&quot;, $ibforums-&gt;skin['_wrapper'] );
+		}</pre>
+<p>aggiungi sotto:</p>
+<pre class="code">//added from MKportal
+if($FORUM_VIEW == 1) {
+	require_once $MK_PATH.&quot;mkportal/include/boardmod/ipb_out.php&quot;;
+	mkportal_board_out($ibforums-&gt;skin['_wrapper']);
+	exit;
+}
+//end added</pre>
+</div>
+<p>
+&nbsp;</p>
+
+</body>
+
+</html>

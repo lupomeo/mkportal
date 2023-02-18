@@ -1,0 +1,89 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="it">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Nuova pagina 0</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+</head>
+
+<body>
+
+<h3 align="center">How to install MKPortal with VBullettin</h3>
+<p><b>Please note</b>: </p>
+<ul>
+	<li>Vbulletin 3.0.3 or 3.0.4 or 3.0.5 is required to install this version of 
+	MKPortal.</li>
+	<li>Before installing this product, we recommend to backup your database.
+	<br>&nbsp;</li>
+</ul>
+<hr>
+<p>
+<br>
+<b>Installing MKPortal is very simple:</b></p>
+<ol>
+	<li>The installation package (zip file) contains the &quot;upload&quot; folder.
+You should transfer the content of &quot;upload&quot; folder on your webspace
+(for example http://www.yoursite.com/) according to this scheme:<br><br><b>/forum&nbsp;&nbsp;&nbsp;
+	</b>&nbsp;&nbsp; <i>&nbsp;&nbsp; (or any other name of the folder containing 
+	the board installed)</i><br>
+	<b>/mkportal&nbsp; </b>&nbsp;&nbsp; <i>(containing the content of &quot;upload&quot; folder)</i><br>
+	<b>/index.php </b>&nbsp; <i>(included in mkportal package)</i><br><br>You should obtain this structure 
+	(it's the only structure to make mkportal work correctly) :<br>
+	<br><b>http://www.yoursite.com/forum<br>http://www.yoursite.com/mkportal<br>http://www.yoursite.com/index.php</b>&nbsp;&nbsp;
+	<i>(mkportal main index)</i><br>
+	<br>If you have the board index on your website root you should move it in a 
+subfolder (as shown in the example above).<br>
+	<br>
+	<br>&nbsp;</li>
+	<li>Now you can start installation typing the url:<br><b>http://www.yoursite.com/mkportal/mk_install.php</b><br>
+	<br>Just follow instructions and it's done<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Give the writing permissions (chmod 777) to the following files and directories and
+to their content:<br><br>mkportal/conf_mk.php<br>mkportal/cache<br>mkportal/blog<br>mkportal/modules/downloads/file<br>mkportal/modules/gallery/album<br>mkportal/modules/reviews/images<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Remove the file mk_install.php file from server</li>
+</ol>
+<p>
+<b>The installation is finished!!<br>
+Have fun!!</b></p><hr>
+<p>
+If you want to view the board inside MKPortal you have to:</p>
+<ul>
+	<li>set in the Mkportal Control Panel -&gt; preferences 
+the option &quot;view the forum inside portal&quot; </li>
+</ul>
+<p>and modify this forum file <i>(backup it!)</i>:</p>
+<ul>
+	<li>includes/functions.php</li>
+</ul>
+<p>
+as follows:</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	open Vbulletin forum file <b>includes/functions.php<br>
+	</b><br>
+	find the code (around line 1957):<pre class="code">// parse PHP include ##################
+	if (!is_demo_mode())
+	{
+		eval(fetch_template('phpinclude_end', -1, 0));
+	}</pre>
+	<p>add after:</p>
+	<pre class="code">//added from MKportal
+define ( 'IN_MKP', 1 );
+$MK_PATH = "../";
+require $MK_PATH."mkportal/conf_mk.php";
+if($FORUM_VIEW == 1 && $_REQUEST['do'] != "getsmilies" && $_REQUEST['do'] != "newthread" && $_REQUEST['do'] != "newreply" && $_REQUEST['do'] != "editpost"  && $_REQUEST['do'] != "editsignature"  && $_REQUEST['do'] != "newpm" && THIS_SCRIPT != "arcade" && THIS_SCRIPT != "vbchat") {
+require_once $MK_PATH."mkportal/include/boardmod/vb_out.php";
+mkportal_board_out($output);
+}
+//end added</pre>
+	<pre>&nbsp;</pre>
+</div>
+
+</body>
+
+</html>

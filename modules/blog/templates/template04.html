@@ -1,0 +1,380 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>!BlogTitle!</title>
+
+<meta NAME="Description" CONTENT="Il mio blog personale">
+
+<style type="text/css" media="all">
+
+
+
+body {
+
+   background:#1A1D5B;
+
+   color:#D4D6A7;
+
+   font:11px/20px verdana, arial, helvetica, sans serif;
+
+   margin:0px 0px 0px 0px;
+
+   padding:0px;
+
+     }
+
+
+
+a {
+
+   text-decoration:none;
+
+   font:11px verdana, arial, helvetica, sans serif;
+
+   font-weight:normal;
+
+   text-decoration:none;
+
+   }
+
+
+
+ a:link {color:#F1F661;}
+
+ a:visited {color:#F4F5C7;}
+
+ a:hover {color:#D4D6A7;}
+
+
+
+
+
+#title {
+
+  position:absolute;
+
+  top:17px;
+
+  left:0px;
+
+  }
+
+
+
+
+
+#under {
+
+  position:absolute;
+
+  top:304px;
+
+  left:0px;
+
+  }
+
+
+
+#log {
+
+ position:absolute;
+
+ top:17px;
+
+ left:350px;
+
+ width:450px;
+
+ background:#3E4077;
+
+ border-left: 1px dashed #F4F5C7;
+
+ border-right: 1px dashed #F4F5C7;
+
+ padding:15px;
+
+ }
+
+
+
+.logbody {
+
+     border:1px 1px dashed #F4F5C7;
+
+     padding:3px; }
+
+.logpost {
+
+     border-top:1px solid #F4F5C7;
+
+     border-bottom:1px solid #F4F5C7;
+
+     padding:3px; }
+
+.logcommenti {
+
+     font:10px verdana, arial, helvetica, sans-serif;
+
+     font-weight:normal;
+
+     color:#F4F5C7;
+
+     margin:5px 0px 5px 0px;
+
+     padding:2px;
+
+     text-align:center;
+
+}
+
+.postdata {
+
+     font:15px verdana, arial, helvetica, sans-serif;
+
+     font-weight:bold;
+
+     color:#F4F5C7;
+
+     margin:5px 0px 5px 0px;
+
+     padding:2px;
+
+     text-align:left;
+
+
+
+ }
+
+
+
+
+
+     
+
+
+
+#titolo {
+
+     position:absolute;
+
+     margin:0px 0px 20px 0px;
+
+     top:20px;
+
+     left:25px;
+
+     width:200px;
+
+     font:18px verdana, arial, helvetica, sans-serif;
+
+     font-weight:bold;
+
+     color:#F4F5C7;
+
+     margin:5px 0px 5px 0px;
+
+     padding:2px;
+
+     text-align:left;
+
+}
+
+#sottotitolo {
+
+     position:absolute;
+
+     margin:0px 0px 20px 0px;
+
+     top:304px;
+
+     left:25px;
+
+     width:200px;
+
+     font:12px verdana, arial, helvetica, sans-serif;
+
+     font-weight:normal;
+
+     color:#F4F5C7;
+
+     margin:5px 0px 5px 0px;
+
+     padding:2px;
+
+     text-align:left;
+
+}
+
+
+
+
+
+#side {
+
+ position:absolute;
+
+ margin:0px 0px 20px 0px;
+
+ top:392px;
+
+ left:75px;
+
+ width:200px;
+
+ border:1px dashed #F4F5C7;
+
+ padding:5px;
+
+ }
+
+
+
+ .sideheader {
+
+  font:10px verdana, arial, helvetica, sans-serif;
+
+  font-weight:bold;
+
+  color:#F4F5C7;
+
+  margin:5px 0px 5px 0px;
+
+  border-bottom:1px dashed #F4F5C7;
+
+  padding:1px;
+
+  text-align:center;
+
+  }
+
+ 
+
+
+
+
+
+</style>
+
+
+
+
+
+</head><body>
+
+
+
+<div id="title">
+
+<img src="mkportal/modules/blog/templates/images/main06.gif">
+
+</div>
+
+
+
+<div id="under">
+
+<img src="mkportal/modules/blog/templates/images/bottom06.gif">
+
+</div>
+
+
+
+
+
+<div id="titolo">!BlogTitle!</div>
+
+<div id="sottotitolo">!BlogDescription!</div>
+
+
+
+
+
+
+
+<div id="side">
+
+<div class="sideheader"> .: chi sono :. </div>
+
+
+
+Anni:<b> !UtenteEta!</b> <br>
+
+Città:<b>!UtenteCitta!</b> <br>
+
+Zodiaco:<b>!UtenteSegno!</b> 
+
+<br>
+
+
+
+<div class="sideheader"> .: cosa amo :.  </div>
+
+!UtenteAmo!<br>
+
+<div class="sideheader"> .: cosa odio :.  </div>
+
+!UtenteOdio!<br>
+
+<div class="sideheader"> .: i link :.  </div>
+
+!UtenteLink!<br>
+
+<div class="sideheader"> .: sognando :.  </div>
+
+!UtenteCitazione!<br>
+
+<div class="sideheader"> .: vecchi post :.  </div>
+
+!UtenteArchivio!<br>
+
+<div class="sideheader"> .: tempo libero :.  </div>
+
+<p align="center"><b>Ho Letto</b><br>!UtenteLibri!</p>
+
+<p align="center"><b>Ho Visto</b><br>!UtenteFilm!</p>
+
+<p align="center"><b>Ascolto</b><br>!UtenteCanzoni!</p><br>
+
+<div class="sideheader"> .: counter :.  </div>
+
+<p align="center"><b>!BlogCounter!</b></p>
+
+</div>
+
+<div id="log">
+
+!CorpoMessaggi!
+
+</div>
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+<!-- template2 -->
+
+
+
+
+
+<div class="postdata">!PostData!</div>
+
+<div class="logpost">!BlogPost!</div>
+
+<div class="logcommenti">
+
+!BlogUtente! ha sussurato qui alle !PostOra! !PostCommenti!</div><br>
+

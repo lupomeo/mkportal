@@ -1,0 +1,143 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="it">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>MKPortal Documentation O²</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+</head>
+
+<body>
+
+<h3 align="center">Comment installer MKPortal avec Oxygen</h3>
+<p><b>Attention</b>: </p>
+<ul>
+	<li>Oxygen 1.1.3 est requis pour installer cette version de MKPortal.</li>
+	<li>Il est recommandé de sauvegarder sa base de données avant d'installer ce produit.
+	<br>&nbsp;</li>
+</ul>
+<hr>
+<p>
+<br>
+<b>L'installation de MKPortal est très simple :</b></p>
+<ol>
+	<li>La pack d'installation (fichier zip) contient le dossier &quot;upload&quot;. Vous
+	devez transférer le dossier &quot;upload&quot; sur votre espace web<br>
+	(pour exemple http://www.votresite.com/) dois être de ce type:<br><br><b>/forum&nbsp;
+	</b>&nbsp;&nbsp; <i>&nbsp;&nbsp;&nbsp;&nbsp; (ou un autre nom de dossier qui
+	contient toute l'installation de O²)</i><br>
+	<b>/mkportal&nbsp; </b>&nbsp;&nbsp; <i>(contenue dans le dossier &quot;upload&quot;)</i><br>
+	<b>/index.php </b>&nbsp; <i>(inclu dans le pack mkportal)</i><br><br>Vous
+	devez obtenir cette structure:<br>
+	<br><b>http://www.votresite.com/forum<br>http://www.votresite.com/mkportal<br>http://www.votresite.com/index.php</b>&nbsp;&nbsp;
+	<i>(index de mkportal)</i><br>
+	<br>il y a d'autre possiblité si vous gardez le nom de dossier mkportal<br>
+	Si vous avez l'index de votre forum sur la racine du serveur vous devez la
+	déplacer dans un sous-dossier<br>
+	(vu dans l'example ci-dessus).<br>
+	<br>
+	<br>&nbsp;</li>
+	<li>Vous pouvez commencer l'installation en tapant cet adresse:<br>
+	<b>http://www.votresite.com/mkportal/mk_install.php<br></b><br>Suivez juste
+	les instructions et c'est fait<br><br><br>&nbsp;</li>
+	<li>Donnez les permissions d'écriture (chmod 777) a ces fichiers et leurs
+	contenues:<br><br>mkportal/conf_mk.php<br>mkportal/cache<br>mkportal/blog<br>mkportal/modules/downloads/file<br>mkportal/modules/gallery/album<br>mkportal/modules/reviews/images<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Supprimer le fichier mk_install.php du serveur</li>
+	<li>modifier le fichier board <b>include/config.php</b> et changez les options de cookies dans:
+
+<pre class="code">$cookie['path'] = '/';</pre>
+	<p>&nbsp;<li>modifier le fichier <b>member.php</b>:<br>
+<br>
+Trouvez le code (près de la ligne 409):<br>
+	<pre class="code">} elseif($action == 'viewpro') {
+	if(!$member) {
+		message($lang['nomember']);
+		exit;
+	} else {
+		$trans = getdate($now);
+		$query = $db-&gt;queryLimit(&quot;SELECT m.*, w.location AS online, ({$trans['year']} - m.byear) AS age FROM $table[members] m LEFT JOIN $table[whosonline] w ON w.uid=m.uid WHERE m.username='$member' ORDER BY w.time DESC&quot;, 1);
+		$memberinfo = $db-&gt;fetch_assoc($query);</pre>
+
+<br>
+supprimez-le et mettez:<br>
+<br>
+<pre class="code">} elseif($action == 'viewpro') {
+	$uid = $_GET['uid'];
+	if(!$member &amp;&amp; !$uid) {
+		message($lang['nomember']);
+		exit;
+	} else {
+
+		$trans = getdate($now);
+		if($member) {
+			$query = $db-&gt;queryLimit(&quot;SELECT m.*, w.location AS online, ({$trans['year']} - m.byear) AS age FROM $table[members] m LEFT JOIN $table[whosonline] w ON w.uid=m.uid WHERE m.username='$member' ORDER BY w.time DESC&quot;, 1);
+		}
+		if($uid) {
+			$query = $db-&gt;queryLimit(&quot;SELECT m.*, w.location AS online, ({$trans['year']} - m.byear) AS age FROM $table[members] m LEFT JOIN $table[whosonline] w ON w.uid=m.uid WHERE m.uid='$uid' ORDER BY w.time DESC&quot;, 1);
+		}
+		$memberinfo = $db-&gt;fetch_assoc($query);</pre></p></ol>
+<p>
+<b>Installation terminé!!<br>
+Amusez-vous bien !!!</b></p><hr>
+<p>
+Si vous voulez intégrer O² à MKPortal, vous devez:</p>
+<ul>
+	<li>Allez dans le Panel Admin Mkportal -&gt; dans vos préférences cocher
+l'option &quot;Visualisation du Forum : À l'Interieur de MKPortal&quot; </li>
+</ul>
+<p>et modifiez ces fichiers <i>(faire une sauvegarde!)</i>:</p>
+<ul>
+		<li>cp.php</li>
+		<li>edtiprofile.php</li>
+		<li>emailfriend.php</li>
+		<li>faq.php</li>
+		<li>forumdisplay.php</li>
+		<li>index.php</li>
+		<li>lastpost.php</li>
+		<li>member.php</li>
+		<li>memcp.php</li>
+		<li>misc.php</li>
+		<li>post.php</li>
+		<li>stats.php</li>
+		<li>topicadmin.php</li>
+		<li>trashdisplay.php</li>
+		<li>viewthread.php</li>
+	</ul>
+	<p>
+comme suivant</p>
+	<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+		Ouvrez les fichiers ci-dessus<br>
+		<br>
+		trouvez la ligne (au debut du fichier):<p class="code">
+		require('./header.php');</p>
+		<p>ajoutez après:</p>
+		<p class="code">//added from mkportal<br>
+		define ( 'IN_MKP', 1 );<br>
+		$MK_PATH = &quot;../&quot;;<br>
+		require $MK_PATH.&quot;mkportal/conf_mk.php&quot;;<br>
+		if($FORUM_VIEW == 1) {<br>
+		ob_start();<br>
+		}<br>
+		// end added</p>
+		<p>--------------------------------------------------</p>
+		<p>trouvez la ligne (près de la fin du fichier):</p>
+		<p class="code">echo $footer;</p>
+		<p>ajoutez après:</p>
+		<p class="code">//added from mkportal<br>
+			if($FORUM_VIEW == 1) {<br>
+			require_once $MK_PATH.&quot;mkportal/include/boardmod/oxy_out.php&quot;;<br>
+			mkportal_board_out();<br>
+		}<br>
+		//end added</p>
+		<p>&nbsp;</div>
+	<p><br>
+&nbsp;</p>
+	<p>
+&nbsp;</p>
+
+</body>
+
+</html>

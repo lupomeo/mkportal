@@ -1,0 +1,111 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="it">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>MKPortal Documentation Simple Machines</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+</head>
+
+<body>
+
+<h3 align="center">Comment installer MKPortal avec SMF</h3>
+<p><b>Attention</b>: </p>
+<ul>
+	<li>SMF 1.x est requis pour installer cette version de MKPortal.</li>
+	<li>Il est recommandé de sauvegarder sa base de données avant d'installer ce produit.
+	<br>&nbsp;</li>
+</ul>
+<hr>
+<p>
+<br>
+<b>L'installation de MKPortal est très simple :</b></p>
+<ol>
+	<li>La pack d'installation (fichier zip) contient le dossier &quot;upload&quot;. Vous
+	devez transférer le dossier &quot;upload&quot; sur votre espace web<br>
+	(pour exemple http://www.votresite.com/) dois être de ce type:<br><br><b>/forum&nbsp;
+	</b>&nbsp;&nbsp; <i>&nbsp;&nbsp;&nbsp;&nbsp; (ou un autre nom de dossier qui
+	contient toute l'installation de SMF)</i><br>
+	<b>/mkportal&nbsp; </b>&nbsp;&nbsp; <i>(contenue dans le dossier &quot;upload&quot;)</i><br>
+	<b>/index.php </b>&nbsp; <i>(inclu dans le pack mkportal)</i><br><br>Vous
+	devez obtenir cette structure:<br>
+	<br><b>http://www.votresite.com/forum<br>http://www.votresite.com/mkportal<br>http://www.votresite.com/index.php</b>&nbsp;&nbsp;
+	<i>(index de mkportal)</i><br>
+	<br>il y a d'autre possiblité si vous gardez le nom de dossier mkportal<br>
+	Si vous avez l'index de votre forum sur la racine du serveur vous devez la
+	déplacer dans un sous-dossier<br>
+	(vu dans l'example ci-dessus).<br>
+	<br>
+	<br>&nbsp;</li>
+	<li>Vous pouvez commencer l'installation en tapant cet adresse:<br>
+	<b>http://www.votresite.com/mkportal/mk_install.php<br></b><br>Suivez juste
+	les instructions et c'est fait<br><br><br>&nbsp;</li>
+	<li>Donnez les permissions d'écriture (chmod 777) a ces fichiers et leurs
+	contenues:<br><br>mkportal/conf_mk.php<br>mkportal/cache<br>mkportal/blog<br>mkportal/modules/downloads/file<br>mkportal/modules/gallery/album<br>mkportal/modules/reviews/images<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Supprimer le fichier mk_install.php du serveur</li>
+
+</ol>
+<p>
+<b>Installation terminé!!<br>
+Amusez-vous bien !!!</b></p><hr>
+<p>
+Si vous voulez intégrer SMF à MKPortal, vous devez:</p>
+<ul>
+	<li>Allez dans le Panel Admin Mkportal -&gt; dans vos préférences cocher
+l'option &quot;Visualisation du Forum : À l'Interieur de MKPortal&quot; </li>
+</ul>
+<p>et modifiez ce fichier <i>(faire une sauvegarde!)</i>:
+<ul>
+	<li>Sources/Subs.php&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+</ul>
+<p>
+comme suivant:</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	<b>Ouvrez Sources/Subs.php<br>
+	</b><br>
+	Trouvez le code (près de la ligne 1275):<p class="code">trackStats();</p>
+	<p>Ajoutez après:</p>
+	<pre class="code">//added from MKportal
+	global $db_prefix;
+	define ( 'IN_MKP', 1 );
+	define('DBPREFIX', $db_prefix);
+	$MK_PATH = &quot;../&quot;;
+	$_SESSION['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
+	require $MK_PATH.&quot;mkportal/conf_mk.php&quot;;
+	$checkaction = 0;
+	if (array_key_exists('action', $_REQUEST)) {
+		if (in_array($_REQUEST['action'], array('dlattach', 'dumpdb', 'findmember', 'helpadmin', 'quotefast', 'spellcheck', '.xml', 'help', 'printpage', 'jsoption', 'keepalive'))) {
+			$checkaction = 1;
+		}
+	}
+	if($FORUM_VIEW == 1 &amp;&amp; !$do_header &amp;&amp; !$checkaction) {
+  		ob_start();
+	}
+//end added</pre>
+	<p>-------------------------------------<br>
+	<br>
+	Trouvez le code:</p>
+	<pre class="code">if ($do_footer)
+	{
+		// Just show the footer, then.
+		loadSubTemplate(isset($context['sub_template']) ? $context['sub_template'] : 'main');
+		template_footer();
+
+		// (since this is just debugging... it's okay that it's after &lt;/html&gt;.)
+		db_debug_junk();
+	}</pre>
+	<p>Ajoutez après:</p>
+	<pre class="code">//added from MKportal
+	if($FORUM_VIEW == 1 &amp;&amp; !$checkaction) {
+		require_once $MK_PATH.&quot;mkportal/include/boardmod/smf_out.php&quot;;
+		mkportal_board_out();
+	}
+//end added</pre>
+	<p>&nbsp;</div>
+
+</body>
+
+</html>

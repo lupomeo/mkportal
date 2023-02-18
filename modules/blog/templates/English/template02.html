@@ -1,0 +1,383 @@
+<!-- template1 -->
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>!BlogTitle!</title>
+
+<meta NAME="Description" CONTENT="Il mio blog personale">
+
+<style type="text/css" media="all">
+
+
+
+body {
+
+    margin:18px;
+
+    padding:0px;
+
+    background:#000000 url(mkportal/modules/blog/templates/images/labbra.gif);
+
+    background-position:top left;
+
+    background-repeat:no-repeat; 
+
+        background-attachment: fixed;
+
+    font-family:verdana, arial, sans-serif;
+
+    font-size:11px;
+
+    color:#f3f3f3;
+
+    text-align:center;
+
+        }
+
+    
+
+#blog {
+
+  position: absolute;
+
+  font-family: tahoma;
+
+  font-size: 11px;
+
+  color:#000000;
+
+  top: 20px;
+
+  left: 260px;
+
+  width: 350px;
+
+  height: 450px;
+
+  padding: 5px;
+
+  overflow: auto;
+
+  z-index: 1;
+
+  filter: alpha(opacity=30);
+
+  scrollbar-face-color : #00ffff; 
+
+  scrollbar-highlight-color : #fb0000; 
+
+  scrollbar-3dlight-color : #00FFFF; 
+
+  scrollbar-shadow-color : #00ffff; 
+
+  scrollbar-darkshadow-color : #00ffff;
+
+  scrollbar-track-color : #oof1f1; 
+
+  scrollbar-arrow-color : #fb0000;
+
+  filter:chroma(color=#00FFFF)
+
+        }
+
+.corpoblog {
+
+    padding-left:20px;
+
+    padding-right:20px;
+
+        }
+
+.data {
+
+    padding:5px;
+
+    font-weight:bold;
+
+    color:#fb0000;
+
+    font-size:12px;
+
+            }
+
+.titolo {
+
+    padding:5px;
+
+    font-weight:bold;
+
+    color:#97848B;
+
+    font-size:18px;
+
+        }
+
+.commenti {
+
+    
+
+        font-size:10px;
+
+    text-align:right;
+
+        padding-left:20px;
+
+    padding-right:20px;
+
+        color: #97848B;
+
+        border-bottom:1px solid #97848B;
+
+
+
+    
+
+        }
+
+#menu {
+
+    left:625px;
+
+    width:200px;
+
+    background-color:#fb0000;
+
+    margin:0px;
+
+        position: absolute;
+
+        font-family: tahoma;
+
+        font-size: 11px;
+
+       color:#000000;
+
+       top: 20px;
+
+       height: 450px;
+
+       padding: 5px;
+
+       z-index: 2;
+
+       overflow: auto;
+
+       filter: alpha(opacity=30);
+
+       scrollbar-face-color : #00FFFF; 
+
+  scrollbar-highlight-color : #fb0000; 
+
+  scrollbar-3dlight-color : #00FFFF; 
+
+  scrollbar-shadow-color : #00ffff; 
+
+  scrollbar-darkshadow-color : #00ffff;
+
+  scrollbar-track-color : #ooffff; 
+
+  scrollbar-arrow-color : #fb0000;
+
+       filter:chroma(color=#00FFFF)
+
+
+
+            }
+
+.menutitolo {
+
+    border-bottom:1px solid #000000;
+
+    padding:5px;
+
+    font-weight:bold;
+
+    color:#000000;
+
+    font-size:12px;
+
+text-align: left;
+
+        }
+
+.menucontenuto {
+
+    border-bottom:1px solid #000000;
+
+    padding:5px;
+
+    font-size:10px;
+
+text-align: left;
+
+
+
+        }
+
+.menucontenuto2 {
+
+    border-bottom:1px solid #000000;
+
+    padding:5px;
+
+    font-size:10px;
+
+        text-align: center;
+
+        }    
+
+a, a:link {
+
+    text-decoration:none;
+
+    color:#ffffff;
+
+        }
+
+a:visited {    
+
+    color:#B7A1A9;
+
+        }        
+
+a:hover, a:active {
+
+    color:#7A7F61;
+
+        }
+
+#crediti {
+
+  position: absolute;
+
+  font-family: tahoma;
+
+  color:#000000;
+
+  top: 500px;
+
+  left: 250px;
+
+  width: 350px;
+
+  padding: 5px;
+
+  overflow: auto;
+
+  padding:5px;
+
+  color:#97848B;
+
+  font-size:10px;
+
+  text-align: left;
+
+        }        
+
+</style>
+
+
+
+
+
+</head><body>
+
+
+
+
+
+<div id="blog">
+
+<div class="titolo">!BlogTitle!</div>
+
+!CorpoMessaggi!
+
+</div>
+
+
+
+
+
+<div id="menu">
+
+<div class="menutitolo">... About Me</div>
+
+<div class="menucontenuto">
+
+Age: <b>!UtenteEta!</b> <br>
+
+  Location: <b>!UtenteCitta!</b> <br> Zodiac Sign: <b>!UtenteSegno!</b> 
+
+</div>
+
+
+
+<div class="menutitolo">... Archives</div>
+
+<div class="menucontenuto">!UtenteArchivio!</div>
+
+
+
+<div class="menutitolo">... What I Like</div>
+
+<div class="menucontenuto">!UtenteAmo!</div>
+
+
+
+<div class="menutitolo">... What I Hate</div>
+
+<div class="menucontenuto">!UtenteOdio!</div>
+
+
+
+<div class="menutitolo">... Quote</div>
+
+<div class="menucontenuto">!UtenteCitazione!</div>
+
+
+
+<div class="menutitolo">... Stuff</div>
+
+<div class="menucontenuto"><p align="center"><b>Reading</b><br>!UtenteLibri!</p>
+
+<p align="center"><b>Last Movie</b><br>!UtenteFilm!</p>
+
+<p align="center"><b>Listening to</b><br>!UtenteCanzoni!</p></div>
+
+
+
+
+
+<div class="menutitolo">... Visits</div>
+
+<div class="menucontenuto"><p align="center"><b>!BlogCounter!</b></p>
+
+</div></div>
+
+
+
+<div id="crediti">Template by <a href="www.coccomeo.net/blog/personal/cristal.html">Cri$t@l</a></div>
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+<!-- template2 -->
+
+
+
+<div class="data"> !PostData!</div>
+
+<div class="corpoblog">!BlogPost!</div>
+
+<br><div class="commenti">
+
+» !BlogUtente! posted @ !PostOra! » !PostCommenti!</div>

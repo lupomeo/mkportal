@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>!BlogTitle!</title>
+<style type="text/css">
+/*generics tags
+___________________________________________*/
+body{
+	text-align: center;
+	background-color: #E1E7E8;
+	font: 11px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	margin-top: 20px;
+}
+
+a:link{
+	color: Gray;
+	text-decoration: none;
+}
+
+a:visited{
+	color: Gray;
+	text-decoration: none;
+}
+
+a:hover{
+	color: Gray;
+	text-decoration: none;
+	position: relative; 
+	top: 1px; 
+	left:1px;
+}
+
+
+/*container
+___________________________________________*/
+#container{
+	text-align: left;
+	width: 750px;
+	border: 1px solid #B6D5DB;
+	padding: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: White;
+}
+
+
+/*header
+___________________________________________*/
+#header{
+	width: 750px;
+	height: 136px;
+	background-image: url(mkportal/modules/blog/templates/images/header16.jpg);
+	background-repeat: no-repeat;
+	border: 1px solid #CCCCCC;
+}
+
+
+/*columns
+___________________________________________*/
+#leftcol{
+	float: left;
+	width: 180px;
+	border: 1px solid #CCCCCC;
+	margin-top: 5px;
+	margin-right: 7px;
+	padding: 4px;
+	color: #06536F;
+}
+
+
+#rightcol{
+	float: right;
+	width: 180px;
+	border: 1px solid #CCCCCC;
+	margin-top: 5px;
+	padding: 4px;
+	color: #06536F;
+}
+
+.box{
+	border: 1px solid #CCCCCC;
+	margin-bottom: 15px;
+	padding: 3px;
+}
+
+.titiim{
+	background-image: url(mkportal/modules/blog/templates/images/tit16.jpg);
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 25px;
+	border-bottom: 2px solid #D6E9F2;
+}
+.tit{
+	margin-top: 2px;
+	color: #ADD8E6;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+
+/*log
+___________________________________________*/
+#center{
+	float: left;
+	width: 100%;
+	border: 1px solid #CCCCCC;
+	width: 346px;
+	margin-top: 5px;
+	padding: 4px;
+	color: #06536F;
+	text-align: center;
+}
+
+.boxlog{
+	margin-bottom: 15px;
+	padding: 3px;
+	text-align: left;
+}
+
+.titlog{
+	background-color: #79BADA;
+	color: #ECFAFB;
+	padding: 5px;
+	border-bottom: 1px solid #348EBC;
+	border-top: 1px solid #348EBC;
+	text-align: center;
+	
+}
+
+
+/*footer
+___________________________________________*/
+#footer{
+	clear: both;
+	color: #06536F;
+	border-top: 1px solid #CCCCCC;
+	text-align: center;
+	margin-top: 5px;
+	color: #7DBBD4;
+}
+
+/*testmenu
+________________________________________*/
+.menutitle{
+cursor:pointer;
+margin-bottom: 5px;
+background-color: #C5E3ED;
+color:#000000;
+width:100%;
+padding:2px;
+text-align:center;
+border-bottom:1px solid #8EC9DB;
+}
+
+.submenu{
+margin-bottom: 0.5em;
+}
+</style>
+
+
+
+
+<script type="text/javascript">
+
+var persistmenu="yes" 
+var persisttype="sitewide" 
+
+if (document.getElementById){
+document.write('<style type="text/css">')
+document.write('.submenu{display: none;}')
+document.write('</style>')
+}
+
+function SwitchMenu(obj){
+	if(document.getElementById){
+	var el = document.getElementById(obj);
+	var ar = document.getElementById("masterdiv").getElementsByTagName("span"); //DynamicDrive.com change
+		if(el.style.display != "block"){ //DynamicDrive.com change
+			for (var i=0; i<ar.length; i++){
+				if (ar[i].className=="submenu") //DynamicDrive.com change
+				ar[i].style.display = "none";
+			}
+			el.style.display = "block";
+		}else{
+			el.style.display = "none";
+		}
+	}
+}
+
+function get_cookie(Name) { 
+var search = Name + "="
+var returnvalue = "";
+if (document.cookie.length > 0) {
+offset = document.cookie.indexOf(search)
+if (offset != -1) { 
+offset += search.length
+end = document.cookie.indexOf(";", offset);
+if (end == -1) end = document.cookie.length;
+returnvalue=unescape(document.cookie.substring(offset, end))
+}
+}
+return returnvalue;
+}
+
+function onloadfunction(){
+if (persistmenu=="yes"){
+var cookiename=(persisttype=="sitewide")? "switchmenu" : window.location.pathname
+var cookievalue=get_cookie(cookiename)
+if (cookievalue!="")
+document.getElementById(cookievalue).style.display="block"
+}
+}
+
+function savemenustate(){
+var inc=1, blockid=""
+while (document.getElementById("sub"+inc)){
+if (document.getElementById("sub"+inc).style.display=="block"){
+blockid="sub"+inc
+break
+}
+inc++
+}
+var cookiename=(persisttype=="sitewide")? "switchmenu" : window.location.pathname
+var cookievalue=(persisttype=="sitewide")? blockid+";path=/" : blockid
+document.cookie=cookiename+"="+cookievalue
+}
+
+if (window.addEventListener)
+window.addEventListener("load", onloadfunction, false)
+else if (window.attachEvent)
+window.attachEvent("onload", onloadfunction)
+else if (document.getElementById)
+window.onload=onloadfunction
+
+if (persistmenu=="yes" && document.getElementById)
+window.onunload=savemenustate
+
+</script>
+
+
+</head>
+
+<body>
+<div id="container">
+
+
+
+<!-- header -->
+	<div id="header">
+		<div align="right">
+			<a href="http://v4ny.net" target="_blank"><img src="mkportal/modules/blog/templates/images/copy16.jpg" height="20" width="150" border="0" /></a>
+		</div>
+	</div>
+<!-- end header div -->
+
+
+
+
+<!-- left column -->
+	<div id="leftcol">
+		<div class="box">
+			<div class="titiim"></div>
+				<div class="tit">ME</div>
+					<!-- content -->
+						Età !UtenteEta!
+							<br />
+						Vivo a  !UtenteCitta!
+							<br />
+						Segno zodiacale !UtenteSegno!
+							<br />
+						Sto leggendo : !UtenteLibri!
+							<br />
+						Amo ascoltare :!UtenteCanzoni!
+							<br />
+						Ultimo film visto : !UtenteFilm!
+							<center>
+								Amo &amp; Non Amo
+							</center>
+						<b>Non Amo ::</b> !UtenteOdio! 
+							<br />
+						<b>Amo ::</b> !UtenteAmo! <br />
+					<!-- end content -->
+		</div>
+		
+		<div class="box">
+			<div class="titiim"></div>
+				<div class="tit">IL BLOG</div>
+					<!-- content -->
+						<center>
+							<span class="colorato">!BlogTitle!</span>
+								<br />
+							!BlogCounter! visite ^^*
+						</center>
+					<br />
+				!BlogDescription!
+			<!-- end content -->
+		</div>
+
+		
+		<div class="box">
+			<div class="titiim"></div>
+				<div class="tit">LINKS</div>
+					<!-- content -->
+						<center>
+							!UtenteLink!
+						</center>
+					<!-- end content -->
+		</div>
+
+		
+		<div class="box">
+			<div class="titiim"></div>
+				<div class="tit">ARCHIVIO</div>
+					<!-- content -->
+						<center>
+							!UtenteArchivio!
+						</center>
+					<!-- end content -->
+		</div>
+
+		
+		<div class="box">
+			<div class="titiim"></div>
+				<div class="tit">CITAZIONE</div>
+					<!-- content -->
+						<center>
+							<i>
+								!UtenteCitazione!
+							</i>
+						</center>
+					<!-- end content -->
+		</div>
+
+		
+		<div class="box">
+			<div class="titiim"></div>
+				<div class="tit">CREDITS</div>
+					<!-- content -->
+					<!-- do not remove this ... thank you -->
+						<center>
+							template by:
+								<br />
+									<a href="http://v4ny.net" title="Template by V4NY" target="_blank"><img src="http://v4ny.net/linkme/88x31/2.gif" alt="Template by V4NY" border="0" /></a>
+								<br />
+							<br />
+						</center>
+					<!-- end content -->
+		</div>
+
+	</div>
+<!-- end left column -->
+
+
+
+
+<!-- center column -->
+	<div id="center">
+		!CorpoMessaggi!
+	</div>
+<!-- end center column -->
+
+
+
+
+<!-- right column -->
+	<div id="rightcol">
+		<!-- testmenu -->
+<div id="masterdiv">
+
+	<div class="menutitle" onclick="SwitchMenu('sub1')">menu1</div>
+	<span class="submenu" id="sub1">
+		mio  testo qui :P
+	</span>
+
+	<div class="menutitle" onclick="SwitchMenu('sub2')">menu2</div>
+	<span class="submenu" id="sub2">
+		mio  testo qui :P
+	</span>
+
+	<div class="menutitle" onclick="SwitchMenu('sub3')">menu3</div>
+	<span class="submenu" id="sub3">
+		mio  testo qui :P
+	</span>
+	
+	<div class="menutitle" onclick="SwitchMenu('sub4')">menu 4</div>
+	<span class="submenu" id="sub4">
+		mio  testo qui :P
+	</span>
+
+	<div class="menutitle" onclick="SwitchMenu('sub5')">menu5</div>
+	<span class="submenu" id="sub5">
+			mio  testo qui :P
+	</span>
+
+</div>
+		<!-- testmenu -->
+
+	</div>
+<!-- end right column -->
+
+
+
+
+<!-- footer column -->
+	<div id="footer">
+		©V4NY - http://v4ny.net
+	</div>
+<!-- end footer column -->
+
+
+
+
+</div>
+</body>
+</html>
+
+<!-- template2 -->
+		<div class="boxlog">
+			<div class="titlog">
+				:: Scritto da !BlogUtente!  :: il !PostData! :: alle ore !PostOra! ::
+			</div>
+				!BlogPost!
+			<div align="right">
+				!PostCommenti!
+			</div>	
+		</div>

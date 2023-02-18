@@ -1,0 +1,181 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="it">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>MKPortal Documentation PHPBB</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+</head>
+
+<body>
+
+<h3 align="center">Comment installer MKPortal avec Phpbb</h3>
+<p><b>Attention</b>: </p>
+<ul>
+	<li>PhpBB 2.0.10 est requis pour installer cette version de MKPortal.</li>
+	<li>Il est recommandé de sauvegarder sa base de données avant d'installer ce produit.
+	<br>&nbsp;</li>
+</ul>
+<hr>
+<p>
+<br>
+<b>L'installation de MKPortal est très simple :</b></p>
+<ol>
+	<li>La pack d'installation (fichier zip) contient le dossier &quot;upload&quot;. Vous
+	devez transférer le dossier &quot;upload&quot; sur votre espace web<br>
+	(pour exemple http://www.votresite.com/) dois être de ce type:<br><br><b>/forum&nbsp;
+	</b>&nbsp;&nbsp; <i>&nbsp;&nbsp;&nbsp;&nbsp; (ou un autre nom de dossier qui
+	contient toute l'installation de PHPBB)</i><br>
+	<b>/mkportal&nbsp; </b>&nbsp;&nbsp; <i>(contenue dans le dossier &quot;upload&quot;)</i><br>
+	<b>/index.php </b>&nbsp; <i>(inclu dans le pack mkportal)</i><br><br>Vous
+	devez obtenir cette structure:<br>
+	<br><b>http://www.votresite.com/forum<br>http://www.votresite.com/mkportal<br>http://www.votresite.com/index.php</b>&nbsp;&nbsp;
+	<i>(index de mkportal)</i><br>
+	<br>il y a d'autre possiblité si vous gardez le nom de dossier mkportal<br>
+	Si vous avez l'index de votre forum sur la racine du serveur vous devez la
+	déplacer dans un sous-dossier<br>
+	(vu dans l'example ci-dessus).<br>
+	<br>
+	<br>&nbsp;</li>
+	<li>Vous pouvez commencer l'installation en tapant cet adresse:<br>
+	<b>http://www.votresite.com/mkportal/mk_install.php<br></b><br>Suivez juste
+	les instructions et c'est fait<br><br><br>&nbsp;</li>
+	<li>Donnez les permissions d'écriture (chmod 777) a ces fichiers et leurs
+	contenues:<br><br>mkportal/conf_mk.php<br>mkportal/cache<br>mkportal/blog<br>mkportal/modules/downloads/file<br>mkportal/modules/gallery/album<br>mkportal/modules/reviews/images<br>
+	<br>
+	<br>
+&nbsp;</li>
+	<li>Supprimer le fichier mk_install.php du serveur</li>
+
+	<li>Ouvrez le fichier du forum:<br>
+	<br>
+	trouvez cette ligne:</li>
+
+<p class="code">redirect(append_sid($url, true));</p>
+<p><font color="#FF0000">la ligne "redirect(append_sid($url, true));" est présente 3 fois dans le fichier login.php
+vous devez substituer cette ligne dans chacune des 3 occurrences.
+Supprimez-la et mettez:</font>:</p>
+<p class="code"><br>
+if ($url == &quot;portalhome&quot;) {<br>
+Header(&quot;Location: ../&quot;);<br>
+exit;<br>
+} else {<br>
+redirect(append_sid($url, true));<br>
+}</p>
+<p>
+&nbsp;</p>
+</ol>
+<p>
+<b>Installation terminé!!<br>
+Amusez-vous bien !!!</b></p>
+<p>
+&nbsp;</p><hr>
+<p>
+Si vous voulez intégrer PHPBB à MKPortal, vous devez:</p>
+<ul>
+	<li>Allez dans le Panel Admin Mkportal -&gt; dans vos préférences cocher
+l'option &quot;Visualisation du Forum : À l'Interieur de MKPortal&quot; </li>
+</ul>
+<p>et modifiez ces fichiers <i>(faire une sauvegarde!)</i>:</p>
+<ul>
+	<li>includes/page_tail.php</li>
+	<li>includes/template.php</li>
+	<li>includes/page_header.php</li>
+	<li>templates/xxxx/overall_header.tpl</li>
+</ul>
+<p>
+comme suivant :</p>
+<p>&nbsp;</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	Ouvrez le fichier du forum <b>includes/page_header.php</b><br>
+	<br>
+	trouvez cette ligne(près de la ligne 460):<p class="code">
+	$template-&gt;assign_block_vars('switch_enable_pm_popup', array());</p>
+	<p>supprimez-la et mettez:</p>
+	<p class="code">//$template-&gt;assign_block_vars('switch_enable_pm_popup', 
+	array());<p>&nbsp;</div>
+<p>&nbsp;</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	<br>
+	Ouvrez le fichier du forum <b>includes/page_tail.php<br>
+	</b><br>
+	find the string (around 48):<p class="code">$db-&gt;sql_close();</p>
+	<p>ajoutez après:</p>
+	<pre class="code">//added from mkportal
+	global $Checkmkout, $ForumOut;
+	define ( 'IN_MKP', 1 );
+	$MK_PATH = &quot;../&quot;;
+	require $MK_PATH.&quot;mkportal/conf_mk.php&quot;;
+	if($FORUM_VIEW == 1 &amp;&amp; !$Checkmkout) {
+		require_once $MK_PATH.&quot;mkportal/include/boardmod/php_out.php&quot;;
+		mkportal_board_out();
+	}
+	if($FORUM_VIEW == 1 &amp;&amp; $Checkmkout) {
+		echo $ForumOut;
+	}
+//end added</pre>
+	<p>&nbsp;</div>
+<p>&nbsp;</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+&nbsp;<p>Ouvrez le fichier du forum <b>includes/template.php<br>
+	</b><br>
+	trouvez cette ligne (rès de la ligne 127):</p>
+	<p class="code">eval($this-&gt;compiled_code[$handle]);</p>
+	<p>supprimez-la et mettez:<br>
+&nbsp;</p>
+	<p class="code">// modificato da mkportal<br>
+	global $ForumOut, $Checkmkout;<br>
+	<br>
+	if ($handle == &quot;smiliesbody&quot; || $handle == &quot;reviewbody&quot;) {<br>
+	$Checkmkout = 1;<br>
+	}<br>
+	$MK_PATH = &quot;./&quot;;<br>
+	if (defined('IN_ADMIN')) {<br>
+	$MK_PATH = &quot;../&quot;;<br>
+	}<br>
+	require $MK_PATH.&quot;../mkportal/conf_mk.php&quot;;<br>
+	<br>
+	<br>
+	if ( !defined('IN_ADMIN') &amp;&amp; $FORUM_VIEW == 1) {<br>
+	ob_start();<br>
+	eval($this-&gt;compiled_code[$handle]);<br>
+	$ForumOut .= ob_get_contents();<br>
+	&nbsp; &nbsp; &nbsp;<span style="white-space: pre;"> </span>ob_end_clean();<br>
+	} else&nbsp; {<br>
+	&nbsp; &nbsp; eval($this-&gt;compiled_code[$handle]);<br>
+	<br>
+	}<br>
+	<br>
+	// fine modificato<p>&nbsp;</div>
+	&nbsp;<p>&nbsp;</p>
+<hr>
+<p><br>
+<b>Optionnel :</b>Ceci est pour supprimer l'en-tête du forum (header) et du skin-dependent<br>
+&nbsp;</p>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	Ouvrez le fichier du forum: <b>templates/subSilver/overall_header.tpl<br>
+<br>
+</b>Supprimez toute les parties de ce code: (près de la ligne 230):<br>
+&nbsp;<pre class="code">&lt;table width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; border=&quot;0&quot;&gt;
+			&lt;tr&gt;
+				&lt;td&gt;&lt;a href=&quot;{U_INDEX}&quot;&gt;&lt;img src=&quot;templates/subSilver/images/logo_phpBB.gif&quot; border=&quot;0&quot; alt=&quot;{L_INDEX}&quot; vspace=&quot;1&quot; /&gt;&lt;/a&gt;&lt;/td&gt;
+				&lt;td align=&quot;center&quot; width=&quot;100%&quot; valign=&quot;middle&quot;&gt;&lt;span class=&quot;maintitle&quot;&gt;{SITENAME}&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;gen&quot;&gt;{SITE_DESCRIPTION}&lt;br /&gt;&amp;nbsp; &lt;/span&gt;
+				&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;2&quot; border=&quot;0&quot;&gt;
+					&lt;tr&gt;
+						&lt;td align=&quot;center&quot; valign=&quot;top&quot; nowrap=&quot;nowrap&quot;&gt;&lt;span class=&quot;mainmenu&quot;&gt;&amp;nbsp;&lt;a href=&quot;{U_FAQ}&quot; class=&quot;mainmenu&quot;&gt;&lt;img src=&quot;templates/subSilver/images/icon_mini_faq.gif&quot; width=&quot;12&quot; height=&quot;13&quot; border=&quot;0&quot; alt=&quot;{L_FAQ}&quot; hspace=&quot;3&quot; /&gt;{L_FAQ}&lt;/a&gt;&lt;/span&gt;&lt;span class=&quot;mainmenu&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;a href=&quot;{U_SEARCH}&quot; class=&quot;mainmenu&quot;&gt;&lt;img src=&quot;templates/subSilver/images/icon_mini_search.gif&quot; width=&quot;12&quot; height=&quot;13&quot; border=&quot;0&quot; alt=&quot;{L_SEARCH}&quot; hspace=&quot;3&quot; /&gt;{L_SEARCH}&lt;/a&gt;&amp;nbsp; &amp;nbsp;&lt;a href=&quot;{U_MEMBERLIST}&quot; class=&quot;mainmenu&quot;&gt;&lt;img src=&quot;templates/subSilver/images/icon_mini_members.gif&quot; width=&quot;12&quot; height=&quot;13&quot; border=&quot;0&quot; alt=&quot;{L_MEMBERLIST}&quot; hspace=&quot;3&quot; /&gt;{L_MEMBERLIST}&lt;/a&gt;&amp;nbsp; &amp;nbsp;&lt;a href=&quot;{U_GROUP_CP}&quot; class=&quot;mainmenu&quot;&gt;&lt;img src=&quot;templates/subSilver/images/icon_mini_groups.gif&quot; width=&quot;12&quot; height=&quot;13&quot; border=&quot;0&quot; alt=&quot;{L_USERGROUPS}&quot; hspace=&quot;3&quot; /&gt;{L_USERGROUPS}&lt;/a&gt;&amp;nbsp;
+      					&lt;!-- BEGIN switch_user_logged_out --&gt;
+						&amp;nbsp;&lt;a href=&quot;{U_REGISTER}&quot; class=&quot;mainmenu&quot;&gt;&lt;img src=&quot;templates/subSilver/images/icon_mini_register.gif&quot; width=&quot;12&quot; height=&quot;13&quot; border=&quot;0&quot; alt=&quot;{L_REGISTER}&quot; hspace=&quot;3&quot; /&gt;{L_REGISTER}&lt;/a&gt;&lt;/span&gt;&amp;nbsp;
+      					&lt;!-- END switch_user_logged_out --&gt;
+						&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td height=&quot;25&quot; align=&quot;center&quot; valign=&quot;top&quot; nowrap=&quot;nowrap&quot;&gt;&lt;span class=&quot;mainmenu&quot;&gt;&amp;nbsp;&lt;a href=&quot;{U_PROFILE}&quot; class=&quot;mainmenu&quot;&gt;&lt;img src=&quot;templates/subSilver/images/icon_mini_profile.gif&quot; width=&quot;12&quot; height=&quot;13&quot; border=&quot;0&quot; alt=&quot;{L_PROFILE}&quot; hspace=&quot;3&quot; /&gt;{L_PROFILE}&lt;/a&gt;&amp;nbsp; &amp;nbsp;&lt;a href=&quot;{U_PRIVATEMSGS}&quot; class=&quot;mainmenu&quot;&gt;&lt;img src=&quot;templates/subSilver/images/icon_mini_message.gif&quot; width=&quot;12&quot; height=&quot;13&quot; border=&quot;0&quot; alt=&quot;{PRIVATE_MESSAGE_INFO}&quot; hspace=&quot;3&quot; /&gt;{PRIVATE_MESSAGE_INFO}&lt;/a&gt;&amp;nbsp; &amp;nbsp;&lt;a href=&quot;{U_LOGIN_LOGOUT}&quot; class=&quot;mainmenu&quot;&gt;&lt;img src=&quot;templates/subSilver/images/icon_mini_login.gif&quot; width=&quot;12&quot; height=&quot;13&quot; border=&quot;0&quot; alt=&quot;{L_LOGIN_LOGOUT}&quot; hspace=&quot;3&quot; /&gt;{L_LOGIN_LOGOUT}&lt;/a&gt;&amp;nbsp;&lt;/span&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/table&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/table&gt;</pre>
+</div>
+
+</body>
+
+</html>

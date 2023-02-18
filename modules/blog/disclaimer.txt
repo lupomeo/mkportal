@@ -1,0 +1,16 @@
+Insert HERE YOUR BLOG DISCLAIMER
+editing file /modules/blog/disclaimer.txt.
+
+--------------
+
+Qui ci va il disclaimer dei blog.
+Si consiglia agli amministratori del sito di inserire
+in questa finestra le regole e le condizioni a cui sono
+soggetti gli utenti per l'uso di questo servizio e indicare
+chiaramente che del contenuto dei blog rispondono gli utenti
+e non gli amministratori del sito.
+
+Potete inserire il vostro disclaimer editando il file
+mkportal/modules/blog/disclaimer.txt
+
+Il Team.
